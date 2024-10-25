@@ -32,7 +32,11 @@ jobs:
       - name: Install dependencies with pnpm
         run: pnpm install
 
-      # Build and generate code
+      # Lint and build
+      - name: Run esLint
+        run: pnpm lint
+      - name: Run prettier
+        run: pnpm prettier
       - name: Build
         run: pnpm build
 
@@ -43,10 +47,6 @@ jobs:
         with:
           name: build
           path: dist
-      - name: Get repository slug
-        if: github.event_name == 'release'
-        id: repo_slug
-        run: echo "REPO_SLUG=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_OUTPUT
       - name: Upload build to release
         if: github.event_name == 'release'
         uses: svenstaro/upload-release-action@v2
@@ -54,5 +54,5 @@ jobs:
           overwrite: true
           file: dist/index.cjs
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          asset_name: ${{ steps.repo_slug.outputs.REPO_SLUG }}.cjs
+          asset_name: base.cjs
           tag: ${{ github.ref }}

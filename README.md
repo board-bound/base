@@ -1,8 +1,6 @@
-# @board-bound/example
+# @board-bound/base
 
-An example plugin showing how to use the
-[`@board-bound/sdk`](https://github.com/board-bound/sdk)
-to create a plugin for the Board Bound Server.
+wip
 
 ## License
 
